@@ -1,6 +1,6 @@
 {
   "name": "mobile-sign",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A project to solve the problem of mobile terminal signature verification.",
   "main": "index.js",
   "scripts": {
