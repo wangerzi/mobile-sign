@@ -1,6 +1,9 @@
-const Hashes = require('hashes')
+const crypto = require('crypto')
 const SparkMD5 = require('spark-md5');
-var MOBILE_SIGN = {
+let MOBILE_SIGN = {
+}
+function getMd5(str) {
+    return crypto.createHash('md5').update(str).digest("hex");
 }
 /**
  * Calc json format Sign
@@ -12,9 +15,7 @@ var MOBILE_SIGN = {
  */
 function calcJsonSign(keyStr, secret, data, mergeStr) {
     // calc md5 and return sign
-    let MD5 = new Hashes.MD5();
-    // console.log("merged field:", fields.join(mergeStr) + mergeStr + values.join(mergeStr) + mergeStr);
-    return MD5.hex(calcJsonMergeStr(keyStr, secret, data, mergeStr));
+    return getMd5(calcJsonMergeStr(keyStr, secret, data, mergeStr));
 }
 
 function calcJsonMergeStr(keyStr, secret, data, mergeStr) {
@@ -46,9 +47,7 @@ function calcJsonMergeStr(keyStr, secret, data, mergeStr) {
  */
 async function calcFormDataSign(keyStr, secret, formData, mergeStr) {
     // calc md5 and return the sign
-    let MD5 = new Hashes.MD5();
-    // console.log("merged field:", fields.join(mergeStr) + mergeStr + values.join(mergeStr) + mergeStr);
-    return MD5.hex(calcFormDataMergeStr(keyStr, secret, formData, mergeStr));
+    return getMd5(calcFormDataMergeStr(keyStr, secret, formData, mergeStr));
 }
 async function calcFormDataMergeStr(keyStr, secret, formData, mergeStr) {
     mergeStr = mergeStr ? mergeStr : ''
